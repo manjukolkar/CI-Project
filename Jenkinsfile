@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_REPO = 'manjukolkar007/ecommerce-app'  // Update with your Docker Hub username
         IMAGE_TAG = ''
+        PATH = "/opt/homebrew/bin:/usr/local/bin:${env.PATH}"
     }
     
     stages {
@@ -28,7 +29,11 @@ pipeline {
             steps {
                 echo 'Installing Node.js dependencies...'
                 sh '''
-                    npm ci
+                    echo "Node.js version:"
+                    node --version || /opt/homebrew/bin/node --version
+                    echo "npm version:"
+                    npm --version || /opt/homebrew/bin/npm --version
+                    npm ci || /opt/homebrew/bin/npm ci
                 '''
             }
         }
@@ -37,7 +42,7 @@ pipeline {
             steps {
                 echo 'Running ESLint...'
                 sh '''
-                    npm run lint || true
+                    npm run lint || /opt/homebrew/bin/npm run lint || true
                 '''
             }
         }
