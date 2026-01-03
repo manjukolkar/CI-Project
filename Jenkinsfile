@@ -74,13 +74,25 @@ pipeline {
                         }
                     } catch (Exception e) {
                         echo "❌ SonarQube analysis failed: ${e.getMessage()}"
-                        echo "Stack trace: ${e.getStackTrace().join('\\n')}"
                         echo ""
                         echo "⚠️ Troubleshooting steps:"
-                        echo "1. Verify SonarQube server is accessible: ${env.SONAR_HOST_URL}"
-                        echo "2. Check project 'ecommerce-app' exists in SonarQube"
-                        echo "3. Verify token has 'Execute Analysis' permission"
-                        echo "4. Check SonarQubeScanner tool path in Jenkins Global Tool Configuration"
+                        echo "1. Configure SonarQube Scanner tool in Jenkins:"
+                        echo "   - Go to: Manage Jenkins → Global Tool Configuration"
+                        echo "   - Scroll to 'SonarQube Scanner'"
+                        echo "   - Click 'Add SonarQube Scanner'"
+                        echo "   - Name: SonarQubeScanner (must match exactly)"
+                        echo "   - Uncheck 'Install automatically'"
+                        echo "   - Set SONAR_RUNNER_HOME: /opt/homebrew/bin (if using Homebrew)"
+                        echo "   - Or: /opt/sonar-scanner (if installed manually)"
+                        echo ""
+                        echo "2. Verify SonarQube server is configured:"
+                        echo "   - Go to: Manage Jenkins → Configure System"
+                        echo "   - Scroll to 'SonarQube servers'"
+                        echo "   - Name should be: SonarQube (must match exactly)"
+                        echo "   - Server URL should be set (e.g., https://sonarcloud.io)"
+                        echo ""
+                        echo "3. Check project 'ecommerce-app' exists in SonarQube"
+                        echo "4. Verify token has 'Execute Analysis' permission"
                         // Don't fail the build
                     }
                 }
