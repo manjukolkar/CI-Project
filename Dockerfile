@@ -1,4 +1,4 @@
-# Multi-stage build for optimized Docker image
+# Multi-stage build for optimized Docker image 
 FROM node:18-alpine AS builder
 
 WORKDIR /app
